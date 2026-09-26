@@ -1,0 +1,35 @@
+name: Build Windows executable
+
+on:
+  push:
+    branches:
+      - arena/01a0ddf1-windows-optimizer
+    paths:
+      - '.github/workflows/windows-exe.yml'
+      - 'native/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-windows-x64:
+    name: Build THARU OPTIMIZER (Windows x64)
+    runs-on: windows-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Configure CMake
+        run: cmake -S native -B native/build -G "Visual Studio 17 2022" -A x64
+
+      - name: Build Release executable
+        run: cmake --build native/build --config Release --parallel
+
+      - name: Upload downloadable EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: THARU-OPTIMIZER-windows-x64
+          path: native/build/Release/THARU-OPTIMIZER.exe
+          if-no-files-found: error
+          retention-days: 30

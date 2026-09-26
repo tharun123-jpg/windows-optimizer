@@ -1,0 +1,10 @@
+{
+  "name": "tharu-optimizer-preview",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Safety-first Windows and Minecraft optimizer interface preview",
+  "scripts": {
+    "dev": "node server.mjs",
+    "start": "node server.mjs"
+  }
+}

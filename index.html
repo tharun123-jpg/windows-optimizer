@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0d12" />
+    <meta name="description" content="THARU OPTIMIZER — a safety-first Windows and Minecraft optimization preview." />
+    <title>THARU OPTIMIZER</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <a class="brand" href="#overview" data-nav="overview" aria-label="THARU OPTIMIZER home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 32" fill="none"><path d="M18.6 3.5 7.9 17.2a1 1 0 0 0 .8 1.6h6.6l-1.9 9.7 10.7-14a1 1 0 0 0-.8-1.6h-6.6l1.9-9.4Z" fill="currentColor" /></svg>
+          </span>
+          <span class="brand-name"><strong>THARU</strong><small>OPTIMIZER</small></span>
+          <span class="brand-edition">PREVIEW</span>
+        </a>
+
+        <div class="device-switcher">
+          <span class="device-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="4" width="17" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>
+          <span class="device-copy"><strong>My PC</strong><small>Sample device</small></span>
+          <span class="device-menu" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="m8 10 4 4 4-4"/></svg></span>
+        </div>
+
+        <nav class="sidebar-nav" id="sidebarNav" aria-label="Main navigation"></nav>
+
+        <div class="sidebar-footer">
+          <div class="sidebar-note">
+            <span class="note-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3.5 19 6v5.5c0 4.4-2.8 7.3-7 9-4.2-1.7-7-4.6-7-9V6l7-2.5Z"/><path d="m9 12 2 2 4-4"/></svg></span>
+            <span><strong>Safety first</strong><small>Changes are preview-only</small></span>
+          </div>
+          <button class="account-button" type="button" data-action="about">
+            <span class="account-avatar">T</span>
+            <span class="account-copy"><strong>THARU Studio</strong><small>Local preview</small></span>
+            <span class="account-more" aria-hidden="true">•••</span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="main-shell">
+        <header class="topbar">
+          <div class="topbar-left">
+            <button class="icon-button mobile-menu" id="mobileMenu" type="button" aria-label="Open navigation" data-action="toggle-menu">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+            </button>
+            <div class="breadcrumbs"><span>THARU</span><span class="breadcrumb-separator">/</span><strong id="breadcrumbCurrent">Overview</strong></div>
+          </div>
+          <div class="topbar-right">
+            <span class="preview-indicator"><i></i><span>Interactive preview</span><b>DEMO</b></span>
+            <button class="icon-button topbar-help" type="button" aria-label="About this preview" data-action="about">
+              <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="8.5"/><path d="M9.7 9.3a2.4 2.4 0 1 1 4.1 1.7c-.9.8-1.8 1.1-1.8 2.5M12 16.8h.01"/></svg>
+            </button>
+            <span class="topbar-avatar" aria-label="THARU Studio">T</span>
+          </div>
+        </header>
+
+        <div class="page-content" id="pageContent" tabindex="-1"></div>
+      </main>
+    </div>
+
+    <div id="modalRoot"></div>
+    <div id="toastRoot" class="toast-root" aria-live="polite" aria-atomic="true"></div>
+  </body>
+</html>
