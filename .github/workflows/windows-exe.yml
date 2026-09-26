@@ -24,7 +24,23 @@ jobs:
         run: cmake -S native -B native/build -G "Visual Studio 17 2022" -A x64
 
       - name: Build Release executable
-        run: cmake --build native/build --config Release --parallel
+        shell: pwsh
+        run: |
+          $output = & cmake --build native/build --config Release --parallel 2>&1
+          $buildExit = $LASTEXITCODE
+          $lines = @($output | ForEach-Object { "$($_)" })
+          $lines | Set-Content -Path native/build/native-build.log
+          if ($buildExit -ne 0) {
+            $errorLines = @($lines | Where-Object { $_ -match 'error|FAILED|C[0-9]{4}' } | Select-Object -Last 8)
+            if ($errorLines.Count -eq 0) { $errorLines = @($lines | Select-Object -Last 8) }
+            foreach ($line in $errorLines) {
+              $escaped = $line -replace '%', '%25' -replace "`r", '%0D' -replace "`n", '%0A'
+              Write-Output "::error::$escaped"
+            }
+            Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value '### Native build failed'
+            $lines | Select-Object -Last 40 | ForEach-Object { Add-Content -Path $env:GITHUB_STEP_SUMMARY -Value "    $_" }
+            exit $buildExit
+          }
 
       - name: Upload downloadable EXE
         uses: actions/upload-artifact@v4
@@ -33,3 +49,12 @@ jobs:
           path: native/build/Release/THARU-OPTIMIZER.exe
           if-no-files-found: error
           retention-days: 30
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: THARU-OPTIMIZER-build-log
+          path: native/build/native-build.log
+          if-no-files-found: ignore
+          retention-days: 7
