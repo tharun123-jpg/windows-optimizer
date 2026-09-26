@@ -45,6 +45,7 @@ struct Palette {
 const Palette kColors{};
 
 int gDpi = 96;
+int gPage = 0;
 int gHoveredTarget = -1;
 int gHardwareTab = 0;
 int gProfile = 0;
@@ -545,12 +546,10 @@ std::wstring healthSummary() {
 }
 
 void drawOverview(HDC dc, RECT area, HWND hwnd) {
-    (void)area;
     const int contentX = px(270);
     const int right = area.right - px(28);
     const int width = right - contentX;
-    const int y = px(84);
-    drawHeading(dc, 270, 78, width / (gDpi / 96.0), L"Your PC, in balance.", L"Safe-first tools for Windows and Minecraft · local sample profile", L"SAMPLE DEVICE");
+    drawHeading(dc, 270, 78, MulDiv(width, 96, gDpi), L"Your PC, in balance.", L"Safe-first tools for Windows and Minecraft · local sample profile", L"SAMPLE DEVICE");
 
     const int gap = px(12);
     const int rowTop = px(151);
@@ -675,7 +674,7 @@ void drawOverview(HDC dc, RECT area, HWND hwnd) {
 }
 
 void drawSectionHeading(HDC dc, int x, int y, int width, const std::wstring& title, const std::wstring& subtitle, const std::wstring& tag = L"") {
-    drawHeading(dc, x / (gDpi / 96.0), y / (gDpi / 96.0), width / (gDpi / 96.0), title, subtitle, tag);
+    drawHeading(dc, MulDiv(x, 96, gDpi), MulDiv(y, 96, gDpi), MulDiv(width, 96, gDpi), title, subtitle, tag);
 }
 
 void drawToggle(HDC dc, RECT rect, bool value, Action action, int index, bool disabled = false) {
